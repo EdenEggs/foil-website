@@ -1,0 +1,1695 @@
+/* Coming Soon — additions on top of styles.css */
+
+.cs-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── sticky nav ─────────────────────────────────────────────────────── */
+.cs-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.cs-nav {
+  display: flex;
+  align-items: center;
+  height: 88px;
+}
+.cs-nav .right {
+  margin-left: auto;
+  display: flex;
+  gap: 24px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+}
+.cs-nav .right a:hover { color: var(--fg); }
+.cs-nav .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--fg-dim);
+}
+.cs-nav .status::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--r-legendary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--r-legendary) 25%, transparent);
+  animation: blink 1.8s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+/* ── hero ───────────────────────────────────────────────────────────── */
+.cs-hero {
+  padding: 72px 0 56px;
+  text-align: center;
+  position: relative;
+}
+.cs-hero .eyebrow {
+  justify-content: center;
+  margin-bottom: 36px;
+}
+.cs-hero .eyebrow::before { display: none; }
+.cs-hero .eyebrow::after  { display: none; }
+.cs-hero .eyebrow {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--fg-dim);
+  letter-spacing: 0.2em;
+}
+.cs-hero .eyebrow .glow {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.cs-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(64px, 12vw, 168px);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
+  margin: 0 0 32px;
+  text-wrap: balance;
+}
+.cs-hero h1 .hl    { color: var(--accent); }
+.cs-hero h1 .stamp {
+  display: inline-block;
+  border: 4px solid var(--accent-2);
+  color: var(--accent-2);
+  padding: 0 18px 6px;
+  transform: rotate(-3deg);
+  margin: 0 6px;
+  font-size: 0.72em;
+}
+
+.cs-hero .lede {
+  font-size: 19px;
+  color: var(--fg-dim);
+  max-width: 560px;
+  margin: 0 auto 44px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* ── email form ─────────────────────────────────────────────────────── */
+.cs-form {
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-2);
+  transition: border-color 0.2s ease;
+}
+.cs-form:focus-within { border-color: var(--accent); }
+
+.cs-form input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  padding: 12px 14px;
+  min-width: 0;
+}
+.cs-form input::placeholder { color: var(--fg-mute); }
+
+.cs-form button {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border: 0;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 22px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+.cs-form button:hover  { transform: translateY(-1px); background: color-mix(in srgb, var(--accent) 85%, white); }
+.cs-form button:active { transform: translateY(0); }
+
+.cs-form-success {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 18px 22px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-2));
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+}
+.cs-form-success .check {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.cs-form-success strong {
+  font-family: var(--display);
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.cs-form-success .pos { color: var(--accent); }
+
+.cs-form-note {
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--fg-mute);
+  text-transform: uppercase;
+}
+
+/* ── stats strip ────────────────────────────────────────────────────── */
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-2);
+  margin-top: 72px;
+}
+.cs-stat {
+  padding: 28px 24px;
+  border-right: 1px solid var(--line);
+  text-align: left;
+}
+.cs-stat:last-child { border-right: 0; }
+.cs-stat .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  margin-bottom: 12px;
+}
+.cs-stat .value {
+  font-family: var(--display);
+  font-size: 40px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--fg);
+}
+.cs-stat .value .unit {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--fg-mute);
+  margin-left: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* countdown digit groups */
+.cs-count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.cs-count .sep {
+  color: var(--fg-mute);
+  font-size: 28px;
+  margin: 0 2px;
+}
+.cs-count .grp {
+  display: inline-flex;
+  flex-direction: column;
+}
+.cs-count .grp small {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--fg-mute);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* ── waitlist meter ─────────────────────────────────────────────────── */
+.cs-meter {
+  margin-top: 24px;
+}
+.cs-meter-bar {
+  height: 8px;
+  background: color-mix(in srgb, var(--fg) 8%, var(--bg-3));
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+.cs-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+.cs-meter .label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+}
+.cs-meter .label strong {
+  color: var(--fg);
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+/* ── opener block (override defaults for this page) ─────────────────── */
+.cs-opener {
+  padding: 96px 0;
+}
+.cs-opener .opener {
+  background: var(--bg-2);
+  padding: 64px 48px;
+}
+.cs-opener .opener-stage {
+  height: 480px;
+}
+
+.cs-opener-head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.cs-opener-head h2 {
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 72px);
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  margin: 0 0 14px;
+  text-wrap: balance;
+}
+.cs-opener-head p {
+  color: var(--fg-dim);
+  margin: 0 auto;
+  max-width: 540px;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* ── perks strip ────────────────────────────────────────────────────── */
+/* ── fan showcase: 3 drops × 3 cards ────────────────────────────────── */
+.cs-fans {
+  padding: 96px 0;
+  border-top: 1px solid var(--line);
+}
+.cs-fans-head {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.cs-fans-head .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--fg-mute);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.cs-fans-head h2 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+.cs-fans-head p {
+  color: var(--fg-dim);
+  margin: 0 auto;
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.cs-fans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.cs-fan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.cs-fan-cards {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cs-fan-card {
+  --r: var(--r-common);
+  position: absolute;
+  width: 130px;
+  height: 182px;
+  border-radius: 8px;
+  border: 2px solid var(--r);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      color-mix(in srgb, var(--r) 30%, var(--bg-3)) 0 6px,
+      color-mix(in srgb, var(--r) 15%, var(--bg-3)) 6px 12px
+    );
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--r) 20%, transparent),
+    0 18px 36px -10px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.35s cubic-bezier(.2, .8, .3, 1);
+  transform-origin: bottom center;
+}
+.cs-fan-logo {
+  font-family: var(--display);
+  font-size: 20px;
+  color: var(--r);
+  letter-spacing: 0.05em;
+  background: var(--bg);
+  padding: 4px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--r);
+}
+.cs-fan-r {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  color: var(--r);
+  text-transform: uppercase;
+}
+/* image-bearing fan card — mini version of a real rip-card-face */
+.cs-fan-card[data-has-image="true"] {
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  gap: 6px;
+  padding: 8px;
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.cs-fan-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-mute);
+  flex-shrink: 0;
+}
+.cs-fan-pill {
+  background: var(--r);
+  color: #0a0a0a;
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 7px;
+  letter-spacing: 0.15em;
+}
+.cs-fan-art {
+  flex: 1;
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--r) 45%, var(--line));
+  border-radius: 3px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      color-mix(in srgb, var(--r) 18%, transparent) 0 6px,
+      transparent 6px 12px
+    ),
+    color-mix(in srgb, var(--r) 8%, var(--bg-3));
+}
+.cs-fan-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cs-fan-name {
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--fg);
+  line-height: 1;
+  text-align: left;
+  flex-shrink: 0;
+}
+.cs-fan-card[data-r="common"] {
+  --r: var(--r-common);
+  transform: translateX(-58px) translateY(8px) rotate(-12deg);
+  z-index: 1;
+}
+.cs-fan-card[data-r="rare"] {
+  --r: var(--r-rare);
+  transform: translateX(0) translateY(-4px) rotate(0deg);
+  z-index: 2;
+}
+.cs-fan-card[data-r="epic"] {
+  --r: var(--r-epic);
+  transform: translateX(58px) translateY(8px) rotate(12deg);
+  z-index: 3;
+}
+.cs-fan:hover .cs-fan-card[data-r="common"] {
+  transform: translateX(-86px) translateY(0) rotate(-18deg);
+}
+.cs-fan:hover .cs-fan-card[data-r="rare"] {
+  transform: translateX(0) translateY(-16px) rotate(0deg);
+}
+.cs-fan:hover .cs-fan-card[data-r="epic"] {
+  transform: translateX(86px) translateY(0) rotate(18deg);
+}
+.cs-fan-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--fg-mute);
+  text-transform: uppercase;
+}
+@media (max-width: 900px) {
+  .cs-fans-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+.cs-perks {
+  padding: 96px 0;
+  border-top: 1px solid var(--line);
+}
+.cs-perks-head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.cs-perks-head .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--fg-mute);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.cs-perks-head h2 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+.cs-perks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.cs-perk {
+  padding: 40px 32px;
+  border-right: 1px solid var(--line);
+}
+.cs-perk:last-child { border-right: 0; }
+.cs-perk .icon {
+  font-family: var(--display);
+  font-size: 28px;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  display: inline-block;
+  border: 2px solid var(--accent);
+  padding: 4px 12px 2px;
+  border-radius: 3px;
+}
+.cs-perk h3 {
+  font-family: var(--display);
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+.cs-perk p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg-dim);
+  margin: 0;
+}
+
+/* ── recent signups ticker (column form) ────────────────────────────── */
+.cs-signups {
+  padding: 80px 0;
+  border-top: 1px solid var(--line);
+}
+.cs-signups-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: center;
+}
+.cs-signups h2 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+.cs-signups p {
+  color: var(--fg-dim);
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 380px;
+}
+.cs-signups-list {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 380px;
+  position: relative;
+}
+.cs-signups-list::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 80px;
+  background: linear-gradient(transparent, var(--bg-2));
+  pointer-events: none;
+}
+.cs-signup-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--fg-dim);
+}
+.cs-signup-row .avatar {
+  width: 28px; height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-size: 12px;
+  color: var(--bg);
+  background: var(--av);
+  letter-spacing: 0;
+}
+.cs-signup-row .handle {
+  color: var(--fg);
+}
+.cs-signup-row .when {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+}
+.cs-signup-row.new {
+  animation: row-in 0.5s ease-out both;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+@keyframes row-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── faq ─────────────────────────────────────────────────────────────── */
+.cs-faq {
+  padding: 80px 0 96px;
+  border-top: 1px solid var(--line);
+}
+.cs-faq-head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.cs-faq-head h2 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.cs-faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+}
+.cs-faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 24px 0;
+}
+.cs-faq-item h4 {
+  font-family: var(--display);
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.cs-faq-item h4 .q {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+}
+.cs-faq-item p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--fg-dim);
+  margin: 0 0 0 50px;
+  max-width: 600px;
+}
+
+/* ── footer compact ─────────────────────────────────────────────────── */
+.cs-foot {
+  margin-top: auto;
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--fg-mute);
+  text-transform: uppercase;
+}
+.cs-foot .right {
+  display: flex;
+  gap: 24px;
+}
+.cs-foot a:hover { color: var(--fg); }
+
+/* ── background flair ───────────────────────────────────────────────── */
+.cs-bg-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--line) 60%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--line) 60%, transparent) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 70%);
+}
+
+/* ── flashy reveal of card title + description on flip ──────────────── */
+.rip-rarity-head[data-revealed="true"][data-r="epic"],
+.rip-flash-reveal[data-r="epic"] {
+  animation: reveal-epic 0.65s cubic-bezier(.2, .8, .3, 1.15) both;
+}
+.rip-rarity-head[data-revealed="true"][data-r="legendary"],
+.rip-flash-reveal[data-r="legendary"] {
+  animation: reveal-legendary 0.95s cubic-bezier(.2, .8, .3, 1.2) both;
+}
+.rip-rarity-head[data-revealed="true"][data-r="mythic"],
+.rip-flash-reveal[data-r="mythic"] {
+  animation: reveal-mythic 1.25s cubic-bezier(.2, .85, .3, 1.25) both;
+}
+
+/* stagger the edition line slightly behind the name line */
+.rip-flash-reveal-late[data-r="epic"]      { animation-delay: 0.12s; }
+.rip-flash-reveal-late[data-r="legendary"] { animation-delay: 0.2s;  }
+.rip-flash-reveal-late[data-r="mythic"]    { animation-delay: 0.28s; }
+
+@keyframes reveal-epic {
+  0%   { opacity: 0; transform: translateY(10px) scale(0.94); filter: blur(8px);  text-shadow: 0 0 0 transparent; }
+  55%  { opacity: 1; transform: translateY(-3px) scale(1.04); filter: blur(0);    text-shadow: 0 0 20px color-mix(in srgb, var(--r-epic) 85%, transparent); }
+  100% { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0);    text-shadow: 0 0 0 transparent; }
+}
+
+@keyframes reveal-legendary {
+  0%   { opacity: 0; transform: translateY(14px) scale(0.88); filter: blur(11px) brightness(1);   text-shadow: 0 0 0 transparent; }
+  28%  { opacity: 1; transform: translateY(-6px) scale(1.08); filter: blur(0)    brightness(1.7); text-shadow: 0 0 28px color-mix(in srgb, var(--r-legendary) 95%, transparent), 0 0 50px color-mix(in srgb, var(--r-legendary) 55%, transparent); }
+  55%  { transform: scale(1.04); filter: brightness(1.35); text-shadow: 0 0 18px color-mix(in srgb, var(--r-legendary) 70%, transparent), 0 0 36px color-mix(in srgb, var(--r-legendary) 30%, transparent); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0) brightness(1); text-shadow: 0 0 0 transparent; }
+}
+
+@keyframes reveal-mythic {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.7);  filter: blur(16px) brightness(1);   text-shadow: 0 0 0 transparent; }
+  12%  { opacity: 1; transform: translateY(-10px) scale(1.14); filter: blur(0) brightness(2.4);   text-shadow: 0 0 32px rgba(255, 255, 255, 0.95), 0 0 60px rgba(255, 100, 200, 0.7); }
+  28%  { transform: scale(1.08); filter: brightness(2);    text-shadow: 0 0 28px rgba(255, 230, 130, 0.95), 0 0 60px rgba(255, 180, 60, 0.7); }
+  44%  { transform: scale(1.06); filter: brightness(1.7);  text-shadow: 0 0 28px rgba(130, 230, 255, 0.9),  0 0 60px rgba(80, 180, 255, 0.6); }
+  60%  { transform: scale(1.04); filter: brightness(1.4);  text-shadow: 0 0 24px rgba(230, 130, 255, 0.85), 0 0 50px rgba(180, 80, 255, 0.5); }
+  78%  { transform: scale(1.02); filter: brightness(1.15); text-shadow: 0 0 16px rgba(255, 255, 255, 0.5); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0) brightness(1); text-shadow: 0 0 0 transparent; }
+}
+
+/* ── arbitrary-angle slice ──────────────────────────────────────────── */
+.rip-pack-halves-arb .rip-pack-half[data-side="a"] {
+  clip-path: none;
+  -webkit-mask-image: linear-gradient(var(--slice-perp), black 49.5%, transparent 50.5%);
+          mask-image: linear-gradient(var(--slice-perp), black 49.5%, transparent 50.5%);
+  animation: half-fly-a 1.1s cubic-bezier(.4, 0, .7, 1) forwards;
+}
+.rip-pack-halves-arb .rip-pack-half[data-side="b"] {
+  clip-path: none;
+  -webkit-mask-image: linear-gradient(var(--slice-perp), transparent 49.5%, black 50.5%);
+          mask-image: linear-gradient(var(--slice-perp), transparent 49.5%, black 50.5%);
+  animation: half-fly-b 1.1s cubic-bezier(.4, 0, .7, 1) forwards;
+}
+@keyframes half-fly-a {
+  0%   { transform: translate(0, 0)                                                                                  rotate(0deg);  opacity: 1; }
+  18%  { transform: translate(calc(var(--fly-ax) * 0.045), calc(var(--fly-ay) * 0.045))                                rotate(-2deg); opacity: 1; }
+  100% { transform: translate(var(--fly-ax), var(--fly-ay))                                                           rotate(-18deg); opacity: 0; }
+}
+@keyframes half-fly-b {
+  0%   { transform: translate(0, 0)                                                                                  rotate(0deg); opacity: 1; }
+  18%  { transform: translate(calc(var(--fly-bx) * 0.045), calc(var(--fly-by) * 0.045))                                rotate(2deg);  opacity: 1; }
+  100% { transform: translate(var(--fly-bx), var(--fly-by))                                                           rotate(18deg);  opacity: 0; }
+}
+
+.rip-pack-halves-arb .rip-slice-flash {
+  animation: slice-flash-arb 0.6s ease-out forwards;
+}
+@keyframes slice-flash-arb {
+  0%   { opacity: 0; transform: rotate(var(--slice-rot, 0deg)) scaleX(0);   }
+  20%  { opacity: 1; transform: rotate(var(--slice-rot, 0deg)) scaleX(1.1); }
+  100% { opacity: 0; transform: rotate(var(--slice-rot, 0deg)) scaleX(1);   }
+}
+
+/* ── card art image rendering ───────────────────────────────────────── */
+.rcf-art[data-has-image="true"] {
+  padding: 0;
+  overflow: hidden;
+}
+.rcf-art[data-has-image="true"] img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  image-rendering: auto;
+  image-rendering: high-quality;
+}
+/* Force the card face onto its own composite layer at full device-pixel
+   resolution — otherwise the 3D-rotated parent rasterizes it at CSS-pixel
+   resolution and images look pixelated on HiDPI displays. */
+.rip-card-face {
+  will-change: transform;
+  transform: rotateY(180deg) translateZ(0);
+}
+
+/* STATS button replaces AUTH. text in the card footer */
+.rcf-stats-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--r, var(--fg)) 85%, var(--fg));
+  background: color-mix(in srgb, var(--r, var(--accent)) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--r, var(--fg)) 55%, transparent);
+  border-radius: 3px;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.rcf-stats-btn:hover {
+  background: color-mix(in srgb, var(--r, var(--accent)) 30%, transparent);
+}
+.rcf-stats-btn:active { transform: scale(0.96); }
+
+/* Stats popup */
+.card-stats-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: cs-fade-in 0.18s ease-out;
+}
+@keyframes cs-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.card-stats {
+  --r: var(--r-common);
+  position: relative;
+  background: var(--bg-2);
+  border: 1px solid color-mix(in srgb, var(--r) 60%, var(--line));
+  border-radius: 8px;
+  padding: 28px 28px 22px;
+  width: min(380px, calc(100vw - 32px));
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--r) 18%, transparent),
+    0 30px 80px -20px rgba(0, 0, 0, 0.7);
+  animation: cs-pop 0.22s cubic-bezier(.34, 1.56, .64, 1);
+  color: var(--fg);
+}
+.card-stats[data-r="common"]    { --r: var(--r-common); }
+.card-stats[data-r="rare"]      { --r: var(--r-rare); }
+.card-stats[data-r="epic"]      { --r: var(--r-epic); }
+.card-stats[data-r="legendary"] { --r: var(--r-legendary); }
+.card-stats[data-r="mythic"]    { --r: var(--r-mythic); }
+@keyframes cs-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+.card-stats-x {
+  position: absolute;
+  top: 8px; right: 10px;
+  width: 28px; height: 28px;
+  background: transparent;
+  border: 0;
+  color: var(--fg-mute);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.card-stats-x:hover { background: color-mix(in srgb, var(--fg) 10%, transparent); color: var(--fg); }
+.card-stats-head { margin-bottom: 18px; }
+.card-stats-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--r);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.card-stats-name {
+  font-family: var(--display);
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.card-stats-edition {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg-mute);
+  letter-spacing: 0.1em;
+}
+.card-stats-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.card-stat-row {
+  display: grid;
+  grid-template-columns: 108px 1fr 32px;
+  align-items: center;
+  gap: 12px;
+}
+.card-stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--fg-dim);
+  text-transform: uppercase;
+}
+.card-stat-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+  overflow: hidden;
+}
+.card-stat-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--r) 70%, transparent),
+    var(--r));
+  border-radius: 4px;
+  transition: width 0.4s cubic-bezier(.2, .8, .3, 1);
+}
+.card-stat-val {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-align: right;
+  color: var(--fg);
+  font-weight: 600;
+}
+.card-stats-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid color-mix(in srgb, var(--r) 25%, var(--line));
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--fg-mute);
+  text-transform: uppercase;
+}
+.card-stats-foot strong {
+  font-family: var(--display);
+  font-size: 22px;
+  color: var(--r);
+  letter-spacing: 0;
+}
+
+/* ── foil grade treatments: brittle → pristine → holographic ────────── */
+.card-stats-grade {
+  position: relative;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  line-height: 1;
+  font-size: 24px;
+}
+
+/* C — brittle / broken: dull, cracked, slightly skewed, half-faded
+   The pseudo-element draws the lower half of the glyph offset
+   horizontally with a thin gap, suggesting a snapped fracture. */
+.card-stats-grade[data-grade="C"] {
+  color: #6b6b6b;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255,255,255,0.02) 0 4px,
+    rgba(0,0,0,0.18) 4px 8px
+  );
+  border: 1px solid rgba(120, 120, 120, 0.35);
+  text-shadow:
+    0 1px 0 rgba(0,0,0,0.4),
+    1px 0 0 rgba(255, 60, 60, 0.18),
+   -1px 0 0 rgba(60, 200, 255, 0.18);
+  transform: rotate(-2deg) skewX(-3deg);
+  opacity: 0.85;
+}
+.card-stats-grade[data-grade="C"]::before,
+.card-stats-grade[data-grade="C"]::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 4px 12px;
+  color: inherit;
+  pointer-events: none;
+}
+.card-stats-grade[data-grade="C"]::before {
+  clip-path: polygon(0 0, 100% 0, 100% 48%, 0 52%);
+  transform: translate(-1px, 0);
+}
+.card-stats-grade[data-grade="C"]::after {
+  clip-path: polygon(0 56%, 100% 52%, 100% 100%, 0 100%);
+  transform: translate(2px, 1px);
+}
+
+/* B — passable: clean but matte, no shine */
+.card-stats-grade[data-grade="B"] {
+  color: #c4c8d2;
+  background: linear-gradient(180deg, #2a2d35, #1c1e24);
+  border: 1px solid #3a3e48;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+}
+
+/* A — pristine silver: subtle metallic gradient + soft sheen */
+.card-stats-grade[data-grade="A"] {
+  background: linear-gradient(180deg, #2c303a 0%, #1a1d24 100%);
+  border: 1px solid #6a7080;
+  color: transparent;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+}
+.card-stats-grade[data-grade="A"]::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 4px 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #b8bdc8 45%, #6a7080 55%, #d8dde6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  pointer-events: none;
+}
+
+/* S — gold foil shimmer */
+.card-stats-grade[data-grade="S"] {
+  background: linear-gradient(180deg, #2a2410 0%, #1a1608 100%);
+  border: 1px solid #b88a1f;
+  color: transparent;
+  box-shadow:
+    0 0 0 1px rgba(245, 200, 66, 0.25),
+    0 0 22px -2px rgba(245, 200, 66, 0.55);
+}
+.card-stats-grade[data-grade="S"]::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 4px 12px;
+  background: linear-gradient(110deg,
+    #b88a1f 0%,
+    #f5c842 25%,
+    #fff8d6 50%,
+    #f5c842 75%,
+    #b88a1f 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: grade-shimmer 2.4s linear infinite;
+  pointer-events: none;
+}
+
+/* S+ — holographic rainbow */
+.card-stats-grade[data-grade="S+"] {
+  background: #08080c;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  color: transparent;
+  box-shadow:
+    0 0 0 1px rgba(255, 0, 200, 0.3),
+    0 0 26px -2px rgba(180, 60, 255, 0.65);
+  padding-right: 14px;
+}
+.card-stats-grade[data-grade="S+"]::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 4px 12px;
+  background: linear-gradient(110deg,
+    #ff3d54 0%,
+    #f5c842 20%,
+    #4af3c8 40%,
+    #4a7cdb 60%,
+    #a052e0 80%,
+    #ff2d8d 100%);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: grade-shimmer 2s linear infinite;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+}
+
+@keyframes grade-shimmer {
+  to { background-position: -220% 0; }
+}
+
+/* Desktop: common + rare cards 25% larger. Mobile (<=900px) stays default. */
+@media (min-width: 901px) {
+  .rip-card[data-r="common"],
+  .rip-card[data-r="rare"] {
+    width: 275px;
+    height: 385px;
+  }
+  .rip-card[data-r="common"] .rip-card-face,
+  .rip-card[data-r="rare"]   .rip-card-face {
+    padding: 17px;
+    gap: 15px;
+  }
+  .rip-card[data-r="common"] .rcf-top,
+  .rip-card[data-r="common"] .rcf-foot,
+  .rip-card[data-r="rare"]   .rcf-top,
+  .rip-card[data-r="rare"]   .rcf-foot {
+    font-size: 12px;
+  }
+  .rip-card[data-r="common"] .rcf-pill,
+  .rip-card[data-r="rare"]   .rcf-pill {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+  .rip-card[data-r="common"] .rcf-art,
+  .rip-card[data-r="rare"]   .rcf-art {
+    font-size: 14px;
+  }
+  .rip-card[data-r="common"] .rcf-name,
+  .rip-card[data-r="rare"]   .rcf-name {
+    font-size: 27px;
+  }
+  /* match the rare pulsing aura to the larger card (was 280x360 around 220x308) */
+  .rip-cards[data-rarity="rare"] .fx-rare-aura {
+    width: 335px;
+    height: 445px;
+  }
+}
+
+/* ── inline word effects in hero lede ───────────────────────────────── */
+.fx-squiggle {
+  position: relative;
+  display: inline-block;
+  padding: 2px 12px 4px;
+  color: var(--fg);
+}
+.fx-squiggle::before {
+  content: "";
+  position: absolute;
+  inset: -4px -2px -2px -2px;
+  border: 3px solid var(--accent-2);
+  /* uneven radii — hand-drawn marker oval */
+  border-radius: 52% 45% 50% 48% / 62% 48% 60% 50%;
+  transform: rotate(-2.5deg);
+  pointer-events: none;
+}
+.fx-block {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--accent-fg);
+  padding: 0 8px;
+  border-radius: 3px;
+  font-weight: 600;
+  transform: rotate(-1.5deg);
+  margin: 0 2px;
+}
+.fx-rainbow {
+  background: linear-gradient(
+    90deg,
+    #ff3d54, #f5c842, #4af3c8, #4a7cdb, #a052e0, #ff2d8d, #ff3d54
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 700;
+  animation: rainbow-shift 4s linear infinite;
+}
+@keyframes rainbow-shift {
+  to { background-position: -200% 0; }
+}
+.fx-foil {
+  position: relative;
+  background: linear-gradient(
+    110deg,
+    #b88a1f 0%,
+    var(--accent) 25%,
+    #fff8d6 50%,
+    var(--accent) 75%,
+    #b88a1f 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 700;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 55%, transparent))
+          drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 30%, transparent));
+  animation: foil-shine 3s linear infinite;
+}
+@keyframes foil-shine {
+  to { background-position: -220% 0; }
+}
+
+/* ── mouse-tracking card tilt (inspection) ──────────────────────────── */
+.rip-cards { perspective: 1500px; }
+.rip-card-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.18s cubic-bezier(.2, .8, .3, 1);
+  will-change: transform;
+}
+
+/* ── face-down anticipation shake (epic/legendary/mythic) ──────────── */
+@keyframes facedown-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  20%      { transform: translate(calc(var(--s, 1) * -2px), calc(var(--s, 1) *  1px)) rotate(calc(var(--s, 1) * -0.6deg)); }
+  40%      { transform: translate(calc(var(--s, 1) *  2px), calc(var(--s, 1) * -1px)) rotate(calc(var(--s, 1) *  0.6deg)); }
+  60%      { transform: translate(calc(var(--s, 1) * -1px), calc(var(--s, 1) *  2px)) rotate(calc(var(--s, 1) * -0.4deg)); }
+  80%      { transform: translate(calc(var(--s, 1) *  1px), calc(var(--s, 1) * -2px)) rotate(calc(var(--s, 1) *  0.4deg)); }
+}
+.rip-card[data-r="epic"] .rip-card-back-face {
+  --s: 0.6;
+  animation:
+    back-pulse 1.8s ease-in-out infinite,
+    facedown-shake 0.55s ease-in-out infinite;
+}
+.rip-card[data-r="legendary"] .rip-card-back-face {
+  --s: 1;
+  animation:
+    back-pulse 1.8s ease-in-out infinite,
+    facedown-shake 0.42s ease-in-out infinite;
+}
+.rip-card[data-r="mythic"] .rip-card-back-face {
+  --s: 1.5;
+  animation:
+    back-pulse 1.8s ease-in-out infinite,
+    facedown-shake 0.32s ease-in-out infinite;
+}
+
+/* ── mythic confetti ────────────────────────────────────────────────── */
+.fx-confetti {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+.fx-confetti span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 1.5px;
+  transform-origin: center;
+  animation: confetti-burst var(--dur, 1.8s) cubic-bezier(.15, .55, .35, 1) forwards;
+  animation-delay: var(--d, 0s);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+}
+@keyframes confetti-burst {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(0.8); opacity: 0; }
+  8%   { opacity: 1; }
+  55%  {
+    transform: translate(calc(var(--tx) * 0.85), calc(var(--ty) - 90px))
+               rotate(calc(var(--rot) * 0.55)) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), calc(var(--ty) + 320px))
+               rotate(var(--rot)) scale(0.65);
+    opacity: 0;
+  }
+}
+
+/* ── mythic pop-off-screen ──────────────────────────────────────────── */
+@keyframes mythic-pop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.75); }
+  65%  { transform: scale(1.35); }
+  100% { transform: scale(1.4); }
+}
+.rip-card[data-r="mythic"][data-flipped="true"],
+.rip-card[data-r="legendary"][data-flipped="true"],
+.rip-card[data-r="epic"][data-flipped="true"] {
+  animation: mythic-pop 0.9s cubic-bezier(.34, 1.56, .64, 1) forwards;
+  z-index: 100;
+}
+
+/* ── COMMON as brittle / dull cardstock ─────────────────────────────── */
+.rip-card[data-r="common"][data-flipped="true"] .rip-card-face {
+  background:
+    /* faint hairline crack overlays */
+    linear-gradient(118deg,
+      transparent 0 45.4%,
+      rgba(255,255,255,0.08) 45.5%, transparent 45.7%,
+      transparent 67%,
+      rgba(255,255,255,0.06) 67.2%, transparent 67.4%),
+    linear-gradient(73deg,
+      transparent 0 22%,
+      rgba(0,0,0,0.18) 22.1%, transparent 22.3%,
+      transparent 78%,
+      rgba(0,0,0,0.14) 78.1%, transparent 78.3%),
+    /* paper grain */
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.012) 0 2px,
+      rgba(0,0,0,0.025) 2px 4px
+    ),
+    linear-gradient(180deg, #1f2025 0%, #181a1e 100%);
+  border-color: #3a3c42;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  filter: saturate(0.7);
+}
+.rip-card[data-r="common"][data-flipped="true"] .rcf-name {
+  text-shadow: 1px 0 0 rgba(180, 60, 60, 0.06), -1px 0 0 rgba(60, 180, 220, 0.06);
+  opacity: 0.92;
+}
+
+/* ── RARE as clean matte plate ──────────────────────────────────────── */
+.rip-card[data-r="rare"][data-flipped="true"] .rip-card-face {
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--r-rare) 8%, #1c1f26) 0%,
+      color-mix(in srgb, var(--r-rare) 4%, #15171c) 100%);
+  border-color: color-mix(in srgb, var(--r-rare) 55%, var(--line));
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--r-rare) 25%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ── EPIC as platinum / engraved metal ──────────────────────────────── */
+.rip-card[data-r="epic"][data-flipped="true"] {
+  filter:
+    drop-shadow(0 0 32px rgba(210, 220, 235, 0.6))
+    drop-shadow(0 0 14px rgba(255, 255, 255, 0.4))
+    drop-shadow(0 24px 60px rgba(0, 0, 0, 0.65));
+}
+
+.rip-card[data-r="epic"][data-flipped="true"] .rip-card-face {
+  background:
+    linear-gradient(135deg,
+      #5a606e 0%,
+      #9aa2b2 18%,
+      #e2e6ee 38%,
+      #c0c6d2 52%,
+      #ecf0f6 68%,
+      #7a8090 88%,
+      #4a505c 100%);
+  border-color: #b0b6c2;
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.55),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1.5px 0 rgba(0, 0, 0, 0.45),
+    inset 0 0 50px rgba(255, 255, 255, 0.12);
+}
+
+/* engraved text — dark with highlight underneath, shadow on top */
+.rip-card[data-r="epic"][data-flipped="true"] .rcf-top,
+.rip-card[data-r="epic"][data-flipped="true"] .rcf-foot {
+  color: rgba(30, 35, 48, 0.6);
+  text-shadow:
+    0 -1px 0 rgba(0, 0, 0, 0.35),
+    0  1px 0 rgba(255, 255, 255, 0.7);
+}
+.rip-card[data-r="epic"][data-flipped="true"] .rcf-name {
+  color: rgba(28, 32, 44, 0.78);
+  text-shadow:
+    0 -1px 1px rgba(0, 0, 0, 0.45),
+    0  1px 0 rgba(255, 255, 255, 0.85),
+    0  2px 1px rgba(255, 255, 255, 0.45);
+}
+
+/* pill becomes a polished platinum chip */
+.rip-card[data-r="epic"][data-flipped="true"] .rcf-pill {
+  background: linear-gradient(180deg, #e8ecf2 0%, #b4bac6 50%, #8a8f9c 100%);
+  color: rgba(20, 25, 35, 0.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* art region — brushed metal with engraved label */
+.rip-card[data-r="epic"][data-flipped="true"] .rcf-art {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.06) 0 1px,
+      transparent 1px 3px
+    ),
+    linear-gradient(135deg, #3e4452 0%, #5e6472 50%, #2e3440 100%);
+  border-color: rgba(210, 215, 225, 0.4);
+  color: rgba(220, 225, 235, 0.7);
+  text-shadow:
+    0 -1px 0 rgba(0, 0, 0, 0.7),
+    0  1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.35);
+}
+
+/* primary reflection — tight bright sweep across the surface */
+.rip-card[data-r="epic"][data-flipped="true"] .rip-card-face::before {
+  background: linear-gradient(115deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.85) 48%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0.85) 52%,
+    transparent 62%);
+  mix-blend-mode: screen;
+  opacity: 1;
+  animation: shine 1.8s linear infinite;
+}
+
+/* secondary reflection — wider softer band, offset timing */
+.rip-card[data-r="epic"][data-flipped="true"] .rip-card-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(95deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: shine 3.2s linear infinite;
+  animation-delay: 0.7s;
+}
+/* ── MYTHIC as diamond / crystalline ────────────────────────────────── */
+.rip-card[data-r="mythic"][data-flipped="true"] {
+  filter:
+    drop-shadow(0 0 38px rgba(200, 230, 255, 0.9))
+    drop-shadow(0 0 18px rgba(255, 255, 255, 0.7))
+    drop-shadow(0 24px 60px rgba(0, 0, 0, 0.65));
+}
+
+.rip-card[data-r="mythic"][data-flipped="true"] .rip-card-face {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.7) 0%, transparent 25%),
+    radial-gradient(ellipse at 75% 40%, rgba(220, 240, 255, 0.5) 0%, transparent 30%),
+    radial-gradient(ellipse at 50% 90%, rgba(180, 220, 255, 0.5) 0%, transparent 40%),
+    linear-gradient(135deg,
+      #b8d4f0 0%,
+      #e8f4ff 25%,
+      #ffffff 45%,
+      #d4e8f8 60%,
+      #a8c8e8 80%,
+      #c8d8e8 100%);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.8),
+    inset 0 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 0 60px rgba(255, 255, 255, 0.3);
+}
+
+/* etched crystal text — light raised edges + faint chromatic dispersion */
+.rip-card[data-r="mythic"][data-flipped="true"] .rcf-top,
+.rip-card[data-r="mythic"][data-flipped="true"] .rcf-foot {
+  color: rgba(80, 110, 150, 0.7);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 1),
+    0 -1px 0 rgba(100, 130, 170, 0.4);
+}
+.rip-card[data-r="mythic"][data-flipped="true"] .rcf-name {
+  color: rgba(70, 100, 140, 0.88);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 1),
+    0 2px 1px rgba(255, 255, 255, 0.6),
+    0 -1px 1px rgba(70, 100, 140, 0.55),
+    -1px 0 0 rgba(255, 200, 220, 0.32),
+    1px 0 0 rgba(180, 220, 255, 0.32);
+}
+
+/* diamond chip pill */
+.rip-card[data-r="mythic"][data-flipped="true"] .rcf-pill {
+  background: linear-gradient(180deg,
+    #ffffff 0%,
+    #e0eef9 40%,
+    #b0c8e0 100%);
+  color: rgba(40, 60, 90, 0.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(120, 150, 180, 0.4),
+    0 0 8px rgba(180, 220, 255, 0.5);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+/* art region — frosted crystal with sparkles + facet lines */
+.rip-card[data-r="mythic"][data-flipped="true"] .rcf-art {
+  background:
+    radial-gradient(circle at 22% 30%, rgba(255, 255, 255, 1) 1px, transparent 2.5px),
+    radial-gradient(circle at 75% 62%, rgba(255, 255, 255, 0.85) 1px, transparent 2.5px),
+    radial-gradient(circle at 50% 88%, rgba(255, 255, 255, 0.9) 1px, transparent 2.5px),
+    radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.75) 1px, transparent 2px),
+    repeating-linear-gradient(45deg,
+      rgba(255, 255, 255, 0.1) 0 4px,
+      transparent 4px 12px),
+    linear-gradient(135deg, #c8e0f8 0%, #e8f4ff 50%, #b8d4f0 100%);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: rgba(60, 90, 130, 0.88);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 1),
+    0 -1px 0 rgba(100, 130, 170, 0.5);
+  box-shadow:
+    inset 0 0 30px rgba(255, 255, 255, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+/* primary facet shine — sharp bright sliver */
+.rip-card[data-r="mythic"][data-flipped="true"] .rip-card-face::before {
+  background: linear-gradient(115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.95) 49%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0.95) 51%,
+    transparent 60%);
+  mix-blend-mode: screen;
+  opacity: 1;
+  animation: shine 1.6s linear infinite;
+}
+
+/* secondary refraction — subtle prismatic dispersion band */
+.rip-card[data-r="mythic"][data-flipped="true"] .rip-card-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(95deg,
+    transparent 38%,
+    rgba(255, 220, 230, 0.35) 44%,
+    rgba(255, 250, 200, 0.4) 48%,
+    rgba(220, 255, 230, 0.4) 52%,
+    rgba(210, 230, 255, 0.4) 56%,
+    rgba(230, 210, 255, 0.35) 60%,
+    transparent 66%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: shine 2.6s linear infinite;
+  animation-delay: 0.4s;
+}
+.rip-card[data-r="legendary"][data-flipped="true"] {
+  filter:
+    drop-shadow(0 0 44px color-mix(in srgb, var(--r-legendary) 95%, transparent))
+    drop-shadow(0 0 18px rgba(255, 235, 160, 0.75))
+    drop-shadow(0 24px 60px rgba(0, 0, 0, 0.6));
+}
+
+/* legendary face — richer gold base + dual-layer holographic sweep */
+.rip-card[data-r="legendary"][data-flipped="true"] .rip-card-face {
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--r-legendary) 22%, var(--bg-2)) 0%,
+      color-mix(in srgb, var(--r-legendary) 10%, var(--bg-2)) 50%,
+      color-mix(in srgb, var(--r-legendary) 26%, var(--bg-2)) 100%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--r-legendary) 60%, transparent),
+    inset 0 0 50px color-mix(in srgb, var(--r-legendary) 28%, transparent);
+}
+.rip-card[data-r="legendary"][data-flipped="true"] .rip-card-face::before {
+  background: linear-gradient(110deg,
+    transparent 18%,
+    rgba(255, 220, 120, 0.55) 38%,
+    rgba(255, 248, 220, 0.85) 50%,
+    rgba(255, 220, 120, 0.55) 62%,
+    transparent 82%);
+  opacity: 1;
+  animation: shine 2.2s linear infinite;
+}
+.rip-card[data-r="legendary"][data-flipped="true"] .rip-card-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    transparent 22%,
+    rgba(255, 215, 140, 0.35) 38%,
+    rgba(255, 180, 60, 0.5) 50%,
+    rgba(255, 215, 140, 0.35) 62%,
+    transparent 78%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: holo 3.6s linear infinite;
+  animation-delay: 0.4s;
+}
+
+/* let the pop'd card escape the stage so it really pops */
+.rip-stage:has(.rip-card[data-r="mythic"][data-flipped="true"]),
+.rip-stage:has(.rip-card[data-r="legendary"][data-flipped="true"]) {
+  overflow: visible;
+}
+
+/* ── mythic screen shake ────────────────────────────────────────────── */
+@keyframes mythic-shake {
+  0%, 100% { transform: translate(0, 0); }
+  8%       { transform: translate(-10px, -6px) rotate(-0.5deg); }
+  18%      { transform: translate(10px, 5px)   rotate(0.5deg);  }
+  28%      { transform: translate(-8px, 6px)   rotate(-0.4deg); }
+  38%      { transform: translate(7px, -6px)   rotate(0.4deg);  }
+  48%      { transform: translate(-5px, 4px)   rotate(-0.3deg); }
+  58%      { transform: translate(5px, -4px)   rotate(0.2deg);  }
+  68%      { transform: translate(-3px, 2px)   rotate(-0.1deg); }
+  78%      { transform: translate(3px, -2px); }
+  88%      { transform: translate(-1px, 1px); }
+}
+body.mythic-shake {
+  animation: mythic-shake 0.8s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* ── responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .cs-stats { grid-template-columns: 1fr 1fr; }
+  .cs-stat:nth-child(2) { border-right: 0; }
+  .cs-stat:nth-child(1), .cs-stat:nth-child(2) { border-bottom: 1px solid var(--line); }
+  .cs-perks-grid { grid-template-columns: 1fr; }
+  .cs-perk { border-right: 0; border-bottom: 1px solid var(--line); }
+  .cs-perk:last-child { border-bottom: 0; }
+  .cs-signups-grid { grid-template-columns: 1fr; }
+  .cs-opener .opener { padding: 32px 16px; }
+}
+
+@media (max-width: 640px) {
+  .cs-nav { height: 64px; }
+  .cs-nav .right { display: none; }
+}
+
+/* desktop: keep buttons at the natural bottom of the side column */
+.rip-actions { display: flex; gap: 8px; margin-top: 8px; }
+
+/* mobile: hoist Next / Skip Rip up so they appear right under the card,
+   and let the popped card overflow the stage so it stays fully visible */
+@media (max-width: 900px) {
+  .rip-actions {
+    order: -1;
+    margin-top: 0;
+    width: 100%;
+  }
+  .rip-actions .btn { flex: 1; }
+  .rip-side { gap: 14px; }
+
+  .rip-stage { overflow: visible; }
+  .rip { overflow: visible; }
+  .rip-cards { z-index: 10; }
+}
+
+@media (max-width: 540px) {
+  .cs-form {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+    gap: 8px;
+  }
+  .cs-form input {
+    width: 100%;
+    padding: 14px 14px;
+    font-size: 16px; /* prevent iOS auto-zoom on focus */
+  }
+  .cs-form button {
+    width: 100%;
+    padding: 14px 22px;
+    font-size: 14px;
+  }
+  .cs-form-success {
+    padding: 16px 18px;
+    gap: 12px;
+  }
+}
