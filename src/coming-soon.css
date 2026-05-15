@@ -1476,7 +1476,7 @@
    transitioned snap-back to (0,0) runs in parallel with the child's @keyframes
    rotation, and the two transforms composite into a visible snag. */
 .rip-cards:has(.rip-card[data-charging="true"]) .rip-card-tilt,
-.rip-cards:has(.rip-card[data-flipped="true"]) .rip-card-tilt {
+.rip-cards:has(.rip-card[data-flipped="true"]:not([data-settled="true"])) .rip-card-tilt {
   transition: none;
 }
 

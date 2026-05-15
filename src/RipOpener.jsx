@@ -158,11 +158,12 @@ function CardStats({ card, onClose }) {
   );
 }
 
-function RipCard({ card, flipped, charging, onFlip }) {
+function RipCard({ card, flipped, charging, settled, onFlip }) {
   const [statsOpen, setStatsOpen] = useState(false);
   const clickable = !flipped && !charging && isFaceDown(card.rarity);
   return (
     <div className="rip-card" data-r={card.rarity} data-flipped={flipped} data-charging={charging ? 'true' : 'false'}
+         data-settled={settled ? 'true' : 'false'}
          onClick={clickable ? onFlip : undefined}
          style={{ cursor: clickable ? 'pointer' : 'default' }}>
       <div className="rip-card-flipper">
@@ -312,6 +313,7 @@ export default function RipOpener() {
   const [revealIdx, setRevealIdx] = useState(0);
   const [flipped, setFlipped] = useState({});
   const [charging, setCharging] = useState({});
+  const [settled, setSettled] = useState({});
   const [revealKey, setRevealKey] = useState(0);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
   const [revealReady, setRevealReady] = useState(false);
@@ -339,7 +341,7 @@ export default function RipOpener() {
     setRevealReady(true);
   }, [revealIdx, phase, pull]);
 
-  const tiltLocked = !!charging[revealIdx] || !!flipped[revealIdx];
+  const tiltLocked = !!charging[revealIdx] || (!!flipped[revealIdx] && !settled[revealIdx]);
   useEffect(() => {
     if (tiltLocked) setTilt({ rx: 0, ry: 0 });
   }, [tiltLocked]);
@@ -452,10 +454,12 @@ export default function RipOpener() {
 
     setCharging((m) => ({ ...m, [revealIdx]: true }));
 
+    const idx = revealIdx;
     setTimeout(() => {
-      setCharging((m) => { const n = { ...m }; delete n[revealIdx]; return n; });
-      setFlipped((m) => ({ ...m, [revealIdx]: true }));
+      setCharging((m) => { const n = { ...m }; delete n[idx]; return n; });
+      setFlipped((m) => ({ ...m, [idx]: true }));
       setTimeout(() => setRevealKey((k) => k + 1), 350);
+      setTimeout(() => setSettled((m) => ({ ...m, [idx]: true })), 1500);
     }, chargeMs);
 
     const shakeMap = {
@@ -477,6 +481,7 @@ export default function RipOpener() {
     setRevealIdx(0);
     setFlipped({});
     setCharging({});
+    setSettled({});
     setTrail([]);
   };
 
@@ -559,6 +564,7 @@ export default function RipOpener() {
               <RipCard card={currentCard}
                        flipped={!isFaceDown(currentCard.rarity) || !!flipped[revealIdx]}
                        charging={!!charging[revealIdx]}
+                       settled={!isFaceDown(currentCard.rarity) || !!settled[revealIdx]}
                        onFlip={flip} />
             </div>
           </div>
