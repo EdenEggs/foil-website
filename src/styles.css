@@ -1668,13 +1668,11 @@ body[data-theme="terminal"] .btn { border-radius: 2px; }
   align-items: center;
   justify-content: center;
   gap: 14px;
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--r) 20%, transparent),
-              0 24px 50px -12px rgba(0,0,0,0.6);
-  animation: back-pulse 1.8s ease-in-out infinite;
-}
-@keyframes back-pulse {
-  0%, 100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--r) 20%, transparent), 0 0 30px color-mix(in srgb, var(--r) 30%, transparent), 0 24px 50px -12px rgba(0,0,0,0.6); }
-  50%      { box-shadow: 0 0 0 6px color-mix(in srgb, var(--r) 30%, transparent), 0 0 60px color-mix(in srgb, var(--r) 50%, transparent), 0 24px 50px -12px rgba(0,0,0,0.6); }
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--r) 25%, transparent),
+    0 0 45px color-mix(in srgb, var(--r) 40%, transparent),
+    0 24px 50px -12px rgba(0,0,0,0.6);
+  transition: box-shadow 0.8s ease-out, filter 0.8s ease-out;
 }
 .rip-card-back-face .bk-logo {
   font-family: var(--display);

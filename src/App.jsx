@@ -303,20 +303,20 @@ export default function App() {
           </div>
         </header>
 
-        {/* hero */}
-        <section className="cs-hero" data-screen-label="01 Hero">
+        {/* hero + demo (combined) */}
+        <section className="cs-hero" id="waitlist" data-screen-label="01 Hero">
           <div className="cs-bg-grid" aria-hidden="true"></div>
           <div className="wrap" style={{ position: 'relative' }}>
-            <div className="eyebrow">
-              <span className="glow"></span>
-              <span>FOIL · SERIES 01 · DROPS Q3 2026</span>
-            </div>
-
             <h1 className="display">
-              The memes<br />
-              are <span className="stamp">coming</span><br />
-              <span className="hl">soon™.</span>
+              The memes are <span className="stamp">coming</span> <span className="hl">soon™.</span>
             </h1>
+
+            <p className="cs-hero-subtitle">Rip a sample pack in the meantime</p>
+
+            {/* DEMO */}
+            <div className="cs-hero-demo">
+              <RipOpener style={t.openStyle} />
+            </div>
 
             <p className="lede">
               Trade <span className="fx-squiggle">virality</span>, rip <span className="fx-block">packs</span>, or simply collect your favorite <span className="fx-rainbow">brainrots</span> —
@@ -326,27 +326,6 @@ export default function App() {
             <SignupForm count={count} onJoin={handleJoin} />
 
             <p className="cs-form-note">No spam. Unsubscribe anytime. We'll just email you when the packs drop.</p>
-          </div>
-        </section>
-
-        {/* stats strip */}
-        {/*
-        <section data-screen-label="02 Stats">
-          <div className="wrap" style={{ padding: 0 }}>
-            <StatsStrip count={count} />
-          </div>
-        </section>
-        */}
-
-        {/* pack opener */}
-        <section className="cs-opener" id="waitlist" data-screen-label="03 Opener">
-          <div className="wrap">
-            <div className="cs-opener-head">
-              <div className="num" style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '.2em', color: 'var(--fg-mute)', textTransform: 'uppercase', marginBottom: 14 }}>[A LITTLE TEASER]</div>
-              <h2>Rip a sample pack.</h2>
-              <p>What's to come in the live app.</p>
-            </div>
-            <RipOpener style={t.openStyle} />
           </div>
         </section>
 

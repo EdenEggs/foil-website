@@ -158,12 +158,13 @@ function CardStats({ card, onClose }) {
   );
 }
 
-function RipCard({ card, flipped, onFlip }) {
+function RipCard({ card, flipped, charging, onFlip }) {
   const [statsOpen, setStatsOpen] = useState(false);
+  const clickable = !flipped && !charging && isFaceDown(card.rarity);
   return (
-    <div className="rip-card" data-r={card.rarity} data-flipped={flipped}
-         onClick={!flipped && isFaceDown(card.rarity) ? onFlip : undefined}
-         style={{ cursor: !flipped && isFaceDown(card.rarity) ? 'pointer' : 'default' }}>
+    <div className="rip-card" data-r={card.rarity} data-flipped={flipped} data-charging={charging ? 'true' : 'false'}
+         onClick={clickable ? onFlip : undefined}
+         style={{ cursor: clickable ? 'pointer' : 'default' }}>
       <div className="rip-card-flipper">
         <div className="rip-card-back-face">
           <div className="bk-r">{card.rarity}</div>
@@ -310,8 +311,10 @@ export default function RipOpener() {
   const [pull, setPull] = useState(PULLS.standard);
   const [revealIdx, setRevealIdx] = useState(0);
   const [flipped, setFlipped] = useState({});
+  const [charging, setCharging] = useState({});
   const [revealKey, setRevealKey] = useState(0);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
+  const [revealReady, setRevealReady] = useState(false);
 
   const stageRef = useRef(null);
   const packRef = useRef(null);
@@ -325,14 +328,31 @@ export default function RipOpener() {
 
   useEffect(() => { setTilt({ rx: 0, ry: 0 }); }, [revealIdx, phase]);
 
+  useEffect(() => {
+    if (phase !== 'revealing') { setRevealReady(false); return; }
+    const rarity = pull[revealIdx]?.rarity;
+    if (rarity === 'common' || rarity === 'rare') {
+      setRevealReady(false);
+      const t = setTimeout(() => setRevealReady(true), 1000);
+      return () => clearTimeout(t);
+    }
+    setRevealReady(true);
+  }, [revealIdx, phase, pull]);
+
+  const tiltLocked = !!charging[revealIdx] || !!flipped[revealIdx];
+  useEffect(() => {
+    if (tiltLocked) setTilt({ rx: 0, ry: 0 });
+  }, [tiltLocked]);
+
   const onTiltMove = (e) => {
+    if (tiltLocked) return;
     const r = e.currentTarget.getBoundingClientRect();
     const dx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
     const dy = (e.clientY - r.top - r.height / 2) / (r.height / 2);
     const max = 18;
     setTilt({ rx: -dy * max, ry: dx * max });
   };
-  const onTiltLeave = () => setTilt({ rx: 0, ry: 0 });
+  const onTiltLeave = () => { if (!tiltLocked) setTilt({ rx: 0, ry: 0 }); };
 
   const stageCoord = (e) => {
     const r = stageRef.current.getBoundingClientRect();
@@ -415,6 +435,8 @@ export default function RipOpener() {
 
   const advance = () => {
     if (phase !== 'revealing') return;
+    const rarity = pull[revealIdx]?.rarity;
+    if ((rarity === 'common' || rarity === 'rare') && !revealReady) return;
     const next = revealIdx + 1;
     if (next >= pull.length) {
       setPhase('done');
@@ -424,11 +446,29 @@ export default function RipOpener() {
     }
   };
   const flip = () => {
-    setFlipped((m) => ({ ...m, [revealIdx]: true }));
-    setTimeout(() => setRevealKey((k) => k + 1), 350);
-    if (pull[revealIdx]?.rarity === 'mythic') {
-      document.body.classList.add('mythic-shake');
-      setTimeout(() => document.body.classList.remove('mythic-shake'), 800);
+    if (charging[revealIdx] || flipped[revealIdx]) return;
+    const rarity = pull[revealIdx]?.rarity;
+    const chargeMs = 800;
+
+    setCharging((m) => ({ ...m, [revealIdx]: true }));
+
+    setTimeout(() => {
+      setCharging((m) => { const n = { ...m }; delete n[revealIdx]; return n; });
+      setFlipped((m) => ({ ...m, [revealIdx]: true }));
+      setTimeout(() => setRevealKey((k) => k + 1), 350);
+    }, chargeMs);
+
+    const shakeMap = {
+      mythic:    { cls: 'mythic-shake',     hold: 900 },
+      legendary: { cls: 'flip-shake-legendary', hold: 650 },
+      epic:      { cls: 'flip-shake-epic',  hold: 500 },
+    };
+    const shake = shakeMap[rarity];
+    if (shake) {
+      setTimeout(() => {
+        document.body.classList.add(shake.cls);
+        setTimeout(() => document.body.classList.remove(shake.cls), shake.hold);
+      }, chargeMs - 80);
     }
   };
   const restart = () => {
@@ -436,6 +476,7 @@ export default function RipOpener() {
     setPack({ x: 0, y: 0, angle: 0 });
     setRevealIdx(0);
     setFlipped({});
+    setCharging({});
     setTrail([]);
   };
 
@@ -517,6 +558,7 @@ export default function RipOpener() {
                  style={{ transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)` }}>
               <RipCard card={currentCard}
                        flipped={!isFaceDown(currentCard.rarity) || !!flipped[revealIdx]}
+                       charging={!!charging[revealIdx]}
                        onFlip={flip} />
             </div>
           </div>
@@ -605,7 +647,8 @@ export default function RipOpener() {
               {needsFlip ? (
                 <button className="btn primary" onClick={flip}>Tap to flip →</button>
               ) : (
-                <button className="btn primary" onClick={advance}>
+                <button className="btn primary" onClick={advance}
+                        disabled={(currentCard.rarity === 'common' || currentCard.rarity === 'rare') && !revealReady}>
                   {revealIdx >= pull.length - 1 ? 'See the stack →' : 'Next card →'}
                 </button>
               )}
