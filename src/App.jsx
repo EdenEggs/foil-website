@@ -10,27 +10,56 @@ function SignupForm({ count, onJoin }) {
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [debug, setDebug] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();
     if (!email || !email.includes('@') || submitting) return;
     setError('');
+    setDebug(null);
     setSubmitting(true);
+    const trace = { url: WAITLIST_URL || '(unset)', sentEmail: email.trim().toLowerCase() };
     try {
-      if (WAITLIST_URL) {
-        const body = new URLSearchParams({
-          email: email.trim().toLowerCase(),
-          referrer: document.referrer || '',
-          userAgent: navigator.userAgent,
-        });
-        const res = await fetch(WAITLIST_URL, { method: 'POST', body });
-        if (!res.ok) throw new Error(`status ${res.status}`);
+      if (!WAITLIST_URL) {
+        trace.warning = 'VITE_WAITLIST_URL not set — request was NOT sent';
+        console.warn('[waitlist]', trace);
+        setDebug(trace);
+        setError('Signup endpoint is not configured on this build.');
+        return;
       }
+
+      const body = new URLSearchParams({
+        email: trace.sentEmail,
+        referrer: document.referrer || '',
+        userAgent: navigator.userAgent,
+      });
+      const res = await fetch(WAITLIST_URL, { method: 'POST', body });
+      trace.status = res.status;
+      trace.ok = res.ok;
+
+      const text = await res.text();
+      trace.rawResponse = text;
+      let data = null;
+      try { data = JSON.parse(text); } catch { /* not JSON */ }
+      trace.parsed = data;
+
+      console.log('[waitlist]', trace);
+
+      if (!res.ok) {
+        setDebug(trace);
+        throw new Error(`HTTP ${res.status}`);
+      }
+      if (data && data.ok === false) {
+        setDebug(trace);
+        throw new Error(`server: ${data.error || 'rejected'}`);
+      }
+
       setDone(true);
       onJoin && onJoin(email);
     } catch (err) {
-      console.error('waitlist submit failed', err);
-      setError("Couldn't save your email. Please try again.");
+      console.error('[waitlist] submit failed', err, trace);
+      setDebug((prev) => prev || trace);
+      setError(`Couldn't save your email: ${err.message}`);
     } finally {
       setSubmitting(false);
     }
@@ -62,6 +91,24 @@ function SignupForm({ count, onJoin }) {
         {submitting ? 'Joining…' : 'Join the waitlist →'}
       </button>
       {error && <div className="cs-form-error" style={{ color: 'var(--accent-2, #ff3d54)', fontSize: 13, marginTop: 8 }}>{error}</div>}
+      {debug && (
+        <pre style={{
+          marginTop: 12,
+          padding: 10,
+          fontSize: 11,
+          lineHeight: 1.4,
+          background: 'rgba(0,0,0,0.55)',
+          color: '#9fe',
+          border: '1px solid rgba(255,255,255,0.15)',
+          borderRadius: 6,
+          overflowX: 'auto',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-all',
+          textAlign: 'left',
+        }}>
+{JSON.stringify(debug, null, 2)}
+        </pre>
+      )}
     </form>
   );
 }
