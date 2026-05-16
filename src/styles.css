@@ -1307,6 +1307,70 @@ body[data-theme="terminal"] .btn { border-radius: 2px; }
   pointer-events: none;
 }
 
+/* estimated value display, top-left of stage */
+.rip-est-value {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--bg-3) 80%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 50;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  min-width: 108px;
+}
+.rip-est-value-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+}
+.rip-est-value-amount {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  display: inline-block;
+  min-height: 18px;
+}
+.rip-est-value-amount.is-pending {
+  color: var(--fg-mute);
+  letter-spacing: 0.18em;
+}
+.rip-est-value-amount.is-calculating {
+  color: var(--fg);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 70%, transparent);
+  animation: rip-est-flicker 0.18s steps(2, end) infinite;
+}
+.rip-est-value-amount.is-done {
+  color: var(--fg);
+  animation: rip-est-settle 0.45s ease-out;
+}
+.rip-est-value[data-r="mythic"] .rip-est-value-amount.is-done {
+  font-size: 28px;
+}
+@keyframes rip-est-flicker {
+  0%   { opacity: 1; transform: translateY(0); }
+  50%  { opacity: 0.75; transform: translateY(-0.5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes rip-est-settle {
+  0%   { transform: scale(1.15); text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 90%, transparent); }
+  60%  { transform: scale(0.97); }
+  100% { transform: scale(1); text-shadow: 0 0 0 transparent; }
+}
+
 /* idle hint at bottom */
 .rip-hint {
   position: absolute;
@@ -2341,4 +2405,14 @@ body[data-theme="terminal"] .btn { border-radius: 2px; }
 @media (max-width: 900px) {
   .rip { grid-template-columns: 1fr; }
   .rip-stage { height: 480px; }
+  .rip-est-value {
+    top: 10px;
+    left: 10px;
+    padding: 7px 10px;
+    min-width: 88px;
+    z-index: 50;
+  }
+  .rip-est-value-label { font-size: 9px; letter-spacing: 0.18em; }
+  .rip-est-value-amount { font-size: 14px; min-height: 14px; }
+  .rip-est-value[data-r="mythic"] .rip-est-value-amount.is-done { font-size: 22px; }
 }

@@ -2,19 +2,19 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 
 const PULLS = {
   standard: [
-    { rarity: 'common',    name: 'Thinking',      edition: '#1,204 / ∞'  },
-    { rarity: 'common',    name: 'Kirkification', edition: '#3,022 / ∞', image: '/Kirky.jpg' },
-    { rarity: 'rare',      name: 'Drake Y/N',     edition: '#0,412 / 2k' },
-    { rarity: 'epic',      name: 'This Is Fine',  edition: '#072 / 500'  },
-    { rarity: 'legendary', name: 'Distracted BF', edition: '#188 / 250'  },
+    { rarity: 'common',    name: 'Thinking',      edition: '#1,204 / 150,000'  },
+    { rarity: 'common',    name: 'Kirkification', edition: '#3,022 / 150,000', image: '/Kirky.jpg' },
+    { rarity: 'rare',      name: 'Drake Y/N',     edition: '#412 / 25,000' },
+    { rarity: 'epic',      name: 'This Is Fine',  edition: '#072 / 10,000'  },
+    { rarity: 'legendary', name: 'Distracted BF', edition: '#188 / 1,000'  },
   ],
   chase: [
-    { rarity: 'common',    name: 'Kirkification', edition: '#3,022 / ∞', image: '/Kirky.jpg' },
-    { rarity: 'rare',      name: 'Yakub',         edition: '#0,882 / 2k', image: '/Yakub.jpg',
+    { rarity: 'common',    name: 'Kirkification', edition: '#3,022 / 150,000', image: '/Kirky.jpg' },
+    { rarity: 'rare',      name: 'Yakub',         edition: '#882 / 25,000', image: '/Yakub.jpg',
       blurb: 'Black scientist who lived approximately 6,600 years ago, responsible for genetically engineering white people through selective breeding.' },
-    { rarity: 'epic',      name: 'Girl Dinner <3', edition: '#128 / 500', image: '/Ozempic.jpg',
+    { rarity: 'epic',      name: 'Girl Dinner <3', edition: '#128 / 10,000', image: '/Ozempic.jpg',
       blurb: '"a once-weekly, brand-name injection approved to improve blood sugar management in adults with type 2 diabetes and to reduce cardiovascular risks, such as heart attack or stroke"' },
-    { rarity: 'legendary', name: 'Tung Tung Tung', edition: '#099 / 250', image: '/Tung.jpg',
+    { rarity: 'legendary', name: 'Tung Tung Tung', edition: '#099 / 1,000', image: '/Tung.jpg',
       blurb: 'The one and only Triple T.' },
     { rarity: 'mythic',    name: 'Daddy',         edition: '#003 / 100', image: '/Daddy.jpg',
       blurb: 'Power level: ???' },
@@ -30,6 +30,51 @@ const rarityCopy = {
   legendary: { tag: 'Legendary',  blurb: 'One of 250. Half-foil treatment.' },
   mythic:    { tag: 'MYTHIC',     blurb: "One of 100. Full holo refractor. Don't breathe on it." },
 };
+
+const RARITY_VALUE = {
+  common:    '$0.001',
+  rare:      '$0.15',
+  epic:      '$2.67',
+  legendary: '$105.69',
+  mythic:    '∞',
+};
+
+function CalculatingValue({ value, rarity }) {
+  const [display, setDisplay] = useState('$0.00');
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    setDone(false);
+    const start = performance.now();
+    const extended = rarity === 'epic' || rarity === 'legendary' || rarity === 'mythic';
+    const duration = extended ? 2100 : 1100;
+    const tick = 55;
+    const isInfinity = value === '∞';
+    const decimals = isInfinity ? 2 : (value.split('.')[1] || '').length;
+    const numericFinal = isInfinity ? 0 : parseFloat(value.replace('$', ''));
+    const ceiling = isInfinity ? 9999 : Math.max(numericFinal * 12, 50);
+
+    const id = setInterval(() => {
+      const elapsed = performance.now() - start;
+      if (elapsed >= duration) {
+        setDisplay(value);
+        setDone(true);
+        clearInterval(id);
+        return;
+      }
+      const n = (Math.random() * ceiling).toFixed(decimals);
+      setDisplay(`$${n}`);
+    }, tick);
+
+    return () => clearInterval(id);
+  }, [value, rarity]);
+
+  return (
+    <span className={`rip-est-value-amount ${done ? 'is-done' : 'is-calculating'}`}>
+      {display}
+    </span>
+  );
+}
 
 function computeSlice(dx, dy) {
   const rad = Math.atan2(dy, dx);
@@ -709,6 +754,21 @@ export default function RipOpener() {
               <PackFace />
             </div>
             <div className="rip-slice-flash" />
+          </div>
+        )}
+
+        {phase === 'revealing' && currentCard && (
+          <div className="rip-est-value" data-r={currentCard.rarity} data-hidden={needsFlip ? 'true' : 'false'}>
+            <span className="rip-est-value-label">Est. Value</span>
+            {needsFlip ? (
+              <span className="rip-est-value-amount is-pending">???</span>
+            ) : (
+              <CalculatingValue
+                value={RARITY_VALUE[currentCard.rarity]}
+                rarity={currentCard.rarity}
+                key={`${revealIdx}-${revealKey}`}
+              />
+            )}
           </div>
         )}
 

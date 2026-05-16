@@ -456,7 +456,7 @@ export default function App() {
               </div>
               <div className="cs-faq-item">
                 <h4><span className="q">Q.04</span>How do trades work?</h4>
-                <p>Marketplace listings, peer-to-peer swaps, or counter-offer negotiations. 2.5% platform fee on sales, zero fee on direct swaps. Full ledger lives with each card forever.</p>
+                <p>Marketplace listings, peer-to-peer swaps, or counter-offer negotiations. 8.5% platform fee on sales. Full ledger lives with each card forever.</p>
               </div>
             </div>
           </div>
