@@ -236,6 +236,147 @@ function Confetti({ count = 70 }) {
   );
 }
 
+const HEART_COLORS = ['#ff4f8a', '#ff79b0', '#ffb3d1', '#ff2d8d', '#ffd1e3', '#ff6fa6'];
+
+function Hearts({ count = 40 }) {
+  const hearts = useMemo(() => Array.from({ length: count }).map((_, i) => {
+    const drift = (Math.random() - 0.5) * 480;
+    const rise = 360 + Math.random() * 280;
+    const dur = 2.6 + Math.random() * 1.4;
+    return {
+      tx: drift,
+      ty: -rise,
+      sway: (Math.random() - 0.5) * 140,
+      rot: (Math.random() - 0.5) * 90,
+      startX: (Math.random() - 0.5) * 260,
+      startY: 80 + Math.random() * 120,
+      size: 32 + Math.random() * 40,
+      color: HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)],
+      delay: (i / count) * dur * -1 + Math.random() * 0.4,
+      dur,
+    };
+  }), [count]);
+  return (
+    <div className="fx-hearts">
+      {hearts.map((h, i) => (
+        <span key={i} className="fx-heart" style={{
+          '--sx': `${h.startX}px`,
+          '--sy': `${h.startY}px`,
+          '--tx': `${h.tx}px`,
+          '--ty': `${h.ty}px`,
+          '--sway': `${h.sway}px`,
+          '--rot': `${h.rot}deg`,
+          '--d': `${h.delay}s`,
+          '--dur': `${h.dur}s`,
+          color: h.color,
+          fontSize: `${h.size}px`,
+        }}>♥</span>
+      ))}
+    </div>
+  );
+}
+
+const BOLT_COLORS = ['#c77dff', '#9d4edd', '#e0aaff', '#7b2cbf', '#b06ef0', '#d8b4fe'];
+
+function Bolts({ count = 26 }) {
+  const bolts = useMemo(() => Array.from({ length: count }).map((_, i) => {
+    const angle = (i / count) * Math.PI * 2 + Math.random() * 0.5;
+    const dist = 320 + Math.random() * 460;
+    const dur = 1.1 + Math.random() * 0.8;
+    return {
+      tx: Math.cos(angle) * dist,
+      ty: Math.sin(angle) * dist,
+      size: 32 + Math.random() * 48,
+      color: BOLT_COLORS[Math.floor(Math.random() * BOLT_COLORS.length)],
+      rot: (Math.random() - 0.5) * 60,
+      jitterX: (Math.random() - 0.5) * 24,
+      jitterY: (Math.random() - 0.5) * 24,
+      delay: (i / count) * dur * -1 + Math.random() * 0.3,
+      dur,
+    };
+  }), [count]);
+  return (
+    <div className="fx-bolts">
+      {bolts.map((b, i) => (
+        <span key={i} className="fx-bolt" style={{
+          '--tx': `${b.tx}px`,
+          '--ty': `${b.ty}px`,
+          '--rot': `${b.rot}deg`,
+          '--jx': `${b.jitterX}px`,
+          '--jy': `${b.jitterY}px`,
+          '--d': `${b.delay}s`,
+          '--dur': `${b.dur}s`,
+          color: b.color,
+          fontSize: `${b.size}px`,
+        }}>⚡</span>
+      ))}
+    </div>
+  );
+}
+
+const STAR_COLORS = ['#ffd76e', '#ffb84a', '#fff2a8', '#ffea66', '#ffcd3c', '#fff8d6'];
+const STAR_GLYPHS = ['★', '✦', '✧', '✯', '✫'];
+
+function Stars({ count = 28 }) {
+  const stars = useMemo(() => Array.from({ length: count }).map((_, i) => {
+    const angle = (i / count) * Math.PI * 2 + Math.random() * 0.6;
+    const dist = 260 + Math.random() * 320;
+    const dur = 1.6 + Math.random() * 1.1;
+    return {
+      tx: Math.cos(angle) * dist,
+      ty: Math.sin(angle) * dist,
+      size: 26 + Math.random() * 36,
+      color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
+      glyph: STAR_GLYPHS[Math.floor(Math.random() * STAR_GLYPHS.length)],
+      spin: (Math.random() < 0.5 ? -1 : 1) * (360 + Math.random() * 540),
+      delay: (i / count) * dur * -1 + Math.random() * 0.3,
+      dur,
+    };
+  }), [count]);
+  return (
+    <div className="fx-stars">
+      {stars.map((s, i) => (
+        <span key={i} className="fx-star" style={{
+          '--tx': `${s.tx}px`,
+          '--ty': `${s.ty}px`,
+          '--spin': `${s.spin}deg`,
+          '--d': `${s.delay}s`,
+          '--dur': `${s.dur}s`,
+          color: s.color,
+          fontSize: `${s.size}px`,
+        }}>{s.glyph}</span>
+      ))}
+    </div>
+  );
+}
+
+function Sparkles({ count = 14 }) {
+  const sparks = useMemo(() => Array.from({ length: count }).map(() => {
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 80 + Math.random() * 200;
+    return {
+      tx: Math.cos(angle) * dist,
+      ty: Math.sin(angle) * dist,
+      size: 10 + Math.random() * 14,
+      delay: Math.random() * 0.8,
+      dur: 0.9 + Math.random() * 0.6,
+    };
+  }), [count]);
+  return (
+    <div className="fx-sparkles">
+      {sparks.map((s, i) => (
+        <span key={i} className="fx-sparkle" style={{
+          '--tx': `${s.tx}px`,
+          '--ty': `${s.ty}px`,
+          '--d': `${s.delay}s`,
+          '--dur': `${s.dur}s`,
+          fontSize: `${s.size}px`,
+        }}>✦</span>
+      ))}
+    </div>
+  );
+}
+
 function Particles({ count, color }) {
   const dots = useMemo(() => (
     Array.from({ length: count }).map((_, i) => {
@@ -269,6 +410,7 @@ function RipFX({ rarity, flipped, revealKey }) {
         <>
           <div className="fx-epic-shockwave" key={revealKey + '-sw'} />
           <Particles count={14} color="epic" key={revealKey + '-p'} />
+          <Bolts count={26} key={revealKey + '-b'} />
         </>
       )}
 
@@ -282,6 +424,7 @@ function RipFX({ rarity, flipped, revealKey }) {
             ))}
           </svg>
           <Particles count={20} color="legendary" key={revealKey + '-p'} />
+          <Stars count={28} key={revealKey + '-s'} />
         </>
       )}
 
@@ -298,9 +441,35 @@ function RipFX({ rarity, flipped, revealKey }) {
           </svg>
           <Particles count={28} color="mythic" key={revealKey + '-p'} />
           <Confetti count={80} key={revealKey + '-c'} />
+          <Hearts count={40} key={revealKey + '-h'} />
+          <Sparkles count={16} key={revealKey + '-sp'} />
         </>
       )}
     </>
+  );
+}
+
+function PackFace() {
+  return (
+    <div className="rip-pack-inner">
+      <div className="rip-pack-foil" />
+      <div className="rip-pack-crimp">
+        <span className="rip-pack-hang" />
+      </div>
+      <div className="rip-pack-perf" />
+      <div className="rip-pack-logo">FOIL</div>
+      <div className="rip-pack-tag">S01 · STARTER</div>
+      <div className="rip-pack-meta">
+        <span>5 CARDS</span>
+        <span className="rip-pack-meta-dot">●</span>
+        <span>MYSTERY PULL</span>
+      </div>
+      <div className="rip-pack-barcode">
+        {Array.from({ length: 22 }).map((_, i) => (
+          <span key={i} style={{ width: `${1 + (i % 3)}px` }} />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -512,10 +681,7 @@ export default function RipOpener() {
               transform: `translate(${pack.x}px, ${pack.y}px) rotate(${pack.angle}deg)`,
             }}
           >
-            <div className="rip-pack-inner">
-              <div className="rip-pack-logo">FOIL</div>
-              <div className="rip-pack-tag">S01 · STARTER</div>
-            </div>
+            <PackFace />
           </div>
         )}
 
@@ -537,16 +703,10 @@ export default function RipOpener() {
                  '--fly-by':     `${slice.flyBy}px`,
                }}>
             <div className="rip-pack-half" data-side="a">
-              <div className="rip-pack-inner">
-                <div className="rip-pack-logo">FOIL</div>
-                <div className="rip-pack-tag">S01 · STARTER</div>
-              </div>
+              <PackFace />
             </div>
             <div className="rip-pack-half" data-side="b">
-              <div className="rip-pack-inner">
-                <div className="rip-pack-logo">FOIL</div>
-                <div className="rip-pack-tag">S01 · STARTER</div>
-              </div>
+              <PackFace />
             </div>
             <div className="rip-slice-flash" />
           </div>
